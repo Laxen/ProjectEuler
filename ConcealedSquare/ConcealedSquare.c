@@ -29,10 +29,21 @@ int getConcealedSquare(int knownDigits[], int N, int min, int max) {
 	return -1;
 }
 
-void getLimits(int N, int firstKnownDigit, int *min, int *max) {
+void getLimits(int N, int knownDigits[], int *min, int *max) {
+	*min = 0;
+	*max = 0;
+
 	int nTotalDigits = 2 * N - 1;
-	*min = sqrt(firstKnownDigit * pow(10, nTotalDigits - 1));
-	*max = pow(10, (nTotalDigits + 1) / 2);
+	for (int i = 0; i < N; ++i) {
+		*min += knownDigits[i] * pow(10, nTotalDigits - 2*i - 1);
+		*min += 1*pow(10, nTotalDigits - 2*i - 2);
+
+		*max += knownDigits[i] * pow(10, nTotalDigits - 2*i - 1);
+		*max += 9*pow(10, nTotalDigits - 2*i - 2);
+	}
+
+	*min = sqrt(*min);
+	*max = sqrt(*max);
 }
 
 int main(void) {
@@ -62,12 +73,21 @@ int main(void) {
 	return 0;
 	*/
 
-	int knownDigits[] = { 1, 2, 7, 1, 7, 4, 1 };
-	int N = 7;
+	// 18291249246071025
+	// 1 2 1 4 2 6 7 0 5
+	int knownDigits[] = { 1, 2, 1, 4, 2, 6, 7, 0, 5 };
+	int N = 9;
+
+	//int knownDigits[] = { 8, 7, 6 };
+	//int N = 3;
+	//int knownDigits[] = { 1, 2, 3, 4 };
+	//int N = 4;
+
 	int min, max;
-	getLimits(N, knownDigits[0], &min, &max);
+	getLimits(N, knownDigits, &min, &max);
 
 	printf("min = %i, max = %i\n", min, max);
+	fflush(stdout);
 	int concealedSquare = getConcealedSquare(knownDigits, N, min, max);
 	printf("%i\n", concealedSquare);
 
