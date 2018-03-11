@@ -44,6 +44,23 @@ int main(void) {
 	* If it returns the original sequence,
 	* you've found the solution
 	*/
+	/*
+	int N;
+    scanf("%i", &N);
+    int knownDigits[N];
+    
+    for(int i = 0; i < N; ++i) {
+        scanf("%i", knownDigits + i);
+    }
+
+	int min, max;
+	getLimits(N, knownDigits[0], &min, &max);
+
+	int concealedSquare = getConcealedSquare(knownDigits, N, min, max);
+	printf("%i\n", concealedSquare);
+
+	return 0;
+	*/
 
 	int knownDigits[] = { 1, 2, 7, 1, 7, 4, 1 };
 	int N = 7;
